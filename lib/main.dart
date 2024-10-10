@@ -1,4 +1,5 @@
 
+import 'package:boi_bhavan/bottom_all_screens/Nav_home.dart';
 import 'package:boi_bhavan/screen/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context){
     return GetMaterialApp(
       debugShowCheckedModeBanner:false,
-      home: SplashScreen(),
+      home: Nav_Home(),
     );
   }
 }
