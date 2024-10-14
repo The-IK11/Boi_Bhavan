@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "521438390609",
+    "project_id": "boi-bhavan",
+    "storage_bucket": "boi-bhavan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521438390609:android:665be17cafc6939c804b70",
+        "android_client_info": {
+          "package_name": "com.example.boi_bhavan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYKGmBcCbgBui9GQfaHkKo6QpEf88p8vo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
