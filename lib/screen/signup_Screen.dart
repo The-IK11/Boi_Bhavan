@@ -1,16 +1,41 @@
+import 'package:boi_bhavan/screen/LoginScreen.dart';
+import 'package:boi_bhavan/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 import 'home_Screen.dart';
 import 'indigator_Screen.dart';
-class SignUp_Screen extends StatelessWidget {
+class SignUp_Screen extends StatefulWidget {
+  @override
+  State<SignUp_Screen> createState() => _SignUp_ScreenState();
+}
+
+class _SignUp_ScreenState extends State<SignUp_Screen> {
   final FormKey=GlobalKey<FormState>();
+  bool _securityText=true;
+
   TextEditingController  _f_nmaeController=TextEditingController();
+
   TextEditingController _L_nameController=TextEditingController();
+
   TextEditingController emailController=TextEditingController();
+
   TextEditingController  numberController=TextEditingController();
+
   TextEditingController passwordController=TextEditingController();
+
+  void dispose(){
+    _f_nmaeController.dispose();
+    _L_nameController.dispose();
+    emailController.dispose();
+    numberController.dispose();
+    passwordController.dispose();
+   super.dispose();
+  }
+  final FirebaseAuthServices auth=FirebaseAuthServices();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -136,8 +161,8 @@ class SignUp_Screen extends StatelessWidget {
                           if(value==null||value.isEmpty){
                             return"Please, enter your phone number";
                           }
-                          else if(value.length<=12){
-                             return "Enter At least 12 number";
+                          else if(value.length<=11){
+                             return "Enter At least 11 number";
                           }
                           return null;
                         },
@@ -164,12 +189,19 @@ class SignUp_Screen extends StatelessWidget {
                       child: TextFormField(
                         controller: passwordController,
                         validator: passwordvalidator,
+                        obscureText: _securityText,
+                        obscuringCharacter: "*",
                         decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
                             hintText: "Password",
-                            hintStyle: TextStyle(fontSize: 15,color: Colors.black),
 
+                            hintStyle: TextStyle(fontSize: 15,color: Colors.black),
+                            suffixIcon: IconButton(onPressed: (){
+                              setState(() {
+                                _securityText=!_securityText;
+                              });
+                            }, icon: _securityText?Icon(Icons.visibility):Icon(Icons.visibility_off)),
                             focusColor: Colors.transparent,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -183,7 +215,7 @@ class SignUp_Screen extends StatelessWidget {
                     padding: EdgeInsets.only(left:300,top:20,right:70),
                     child: ElevatedButton(onPressed: (){
                      if(FormKey.currentState!.validate())
-                      navScreen();
+                       _signUp();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red
@@ -198,14 +230,19 @@ class SignUp_Screen extends StatelessWidget {
                       onTap: (){
 
                       },
-                      child: RichText(text: TextSpan(
-                        text: "Have an account?",
-                        children: [
-                          TextSpan(
-                            text: " Login",style: TextStyle(fontWeight:FontWeight.bold,)
-                          )
-                        ]
-                      )),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>LoginScreen()));
+                        },
+                        child: RichText(text: TextSpan(
+                          text: "Have an account?",
+                          children: [
+                            TextSpan(
+                              text: " Login",style: TextStyle(fontWeight:FontWeight.bold,)
+                            )
+                          ]
+                        )),
+                      ),
                     ),
                   )
                 ],
@@ -216,6 +253,23 @@ class SignUp_Screen extends StatelessWidget {
       ),
     );
   }
+
+  void _signUp()async{
+    String first_name=_f_nmaeController.text;
+    String last_name=_L_nameController.text;
+    String email =emailController.text;
+    String number =numberController.text;
+    String password=passwordController.text;
+    User?user =await auth.signUpWithEmailAndPassword(email,password);
+    if(user!=null){
+     print("User is successfully created");
+     navScreen();
+    }
+    else{
+      print("some error occurred");
+    }
+  }
+
 }
 
 void navScreen()async{

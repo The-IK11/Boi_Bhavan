@@ -1,8 +1,11 @@
+import 'package:boi_bhavan/screen/practice_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../screen/search_page.dart';
+import '../widgets/Top_sec_widget.dart';
 import '../widgets/bottom_navigationbar_screen.dart';
+import '../widgets/card_screen_widget.dart';
 import '../widgets/slide_screens.dart';
 import '../widgets/topbuttonwid.dart';
 
@@ -135,93 +138,63 @@ class _Nav_HomeState extends State<Nav_Home> {
               ),
 
             ),
-          SlideScreens(),
-          SizedBox(height: 3,),
-          Container(
-            height: 40,
-            width: MediaQuery.of(context).size.width,
-           decoration: BoxDecoration(
-             border:Border(
-               top: BorderSide(color: Colors.grey.shade300,width: 1.0),
-               bottom: BorderSide(color:Colors.grey.shade300,width: 1.0)),
-             boxShadow: [BoxShadow(
-               color: Colors.grey.shade500,
-               spreadRadius: 0.3,
-               offset: Offset(1,2),
-               blurRadius: 18,
-
-             )],
-              color: Colors.grey.shade100
-             ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-
+         Expanded(
+           child: SingleChildScrollView(
+             child: Column(
                 children: [
-                   top_sec_widget(text: "বিশ্ববিদ্যালয় ভর্তি \nপরীক্ষা প্রস্তুতি"),
-                  top_sec_widget(text: "ইঞ্জিনিয়ারিং ভর্তি \nপরীক্ষা প্রস্তুতি"),
-                  top_sec_widget(text: "মেডিক্যাল ভর্তি \nপরীক্ষা প্রস্তুতি"),
-                  top_sec_widget(text: "বিসিএস ভর্তি \nপরীক্ষা প্রস্তুতি",),
-                  top_sec_widget(text: "IELTS all books \ncollections "),
+                  SlideScreens(),
+                  SizedBox(height: 3,),
+                  Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        border:Border(
+                            top: BorderSide(color: Colors.grey.shade300,width: 1.0),
+                            bottom: BorderSide(color:Colors.grey.shade300,width: 1.0)),
+                        boxShadow: [BoxShadow(
+                          color: Colors.grey.shade500,
+                          spreadRadius: 0.3,
+                          offset: Offset(1,2),
+                          blurRadius: 18,
+
+                        )],
+                        color: Colors.grey.shade100
+                    ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+
+                        children: [
+                          top_sec_widget(text: "বিশ্ববিদ্যালয় ভর্তি \nপরীক্ষা প্রস্তুতি"),
+                          top_sec_widget(text: "ইঞ্জিনিয়ারিং ভর্তি \nপরীক্ষা প্রস্তুতি"),
+                          top_sec_widget(text: "মেডিক্যাল ভর্তি \nপরীক্ষা প্রস্তুতি"),
+                          top_sec_widget(text: "বিসিএস ভর্তি \nপরীক্ষা প্রস্তুতি",),
+                          top_sec_widget(text: "IELTS all books \ncollections "),
+
+                        ],
+                      ),
+                    ),
+
+                  ),
+                  SizedBox(height: 5,),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      height: 250,
+                      width: double.infinity,
+                      child: CardScreenWidget(),
+                    ),
+
+                  ),
 
                 ],
               ),
-            ),
-
-          )
+           ),
+         )
 
         ],
       )
+
     );
   }
 }
-
-class top_sec_widget extends StatelessWidget {
-  final String text;
-  top_sec_widget({
-    super.key, required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 4,left: 10),
-      child: Container(height: 30,width: 140,
-      decoration: BoxDecoration(
-          color:Colors.deepOrange,
-        borderRadius: BorderRadius.circular(4)
-      ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 13,
-            ),
-          ),
-          Text(text,style: TextStyle(fontSize: 9,fontWeight: FontWeight.w100,)),
-         InkWell(
-           onTap: (){},
-           focusColor: Colors.grey,
-           splashColor: Colors.white,
-           child: Padding(
-             padding: const EdgeInsets.only(left: 7),
-             child: Container(
-               height: 20,
-               width: 25,
-               decoration: BoxDecoration(
-                 color: Colors.white,
-                 borderRadius: BorderRadius.circular(6),
-               ),
-               child: Center(child: Text("Buy",style: TextStyle(fontSize: 8,color: Colors.black),)),
-             ),
-           ),
-         )
-        ],
-      ),)
-        
-    );
-  }
-}
-
